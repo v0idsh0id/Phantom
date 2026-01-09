@@ -69,6 +69,41 @@ python test_phantom_crypto.py
 python phantom_crypto.py
 ```
 
+## Running on GitHub
+
+You can run this program directly on GitHub using GitHub Actions! 
+
+### Automated Testing
+
+Every push and pull request automatically runs:
+- ✅ Full test suite (38 tests)
+- ✅ Demo execution
+- ✅ Examples validation
+- ✅ Multi-version Python testing (3.9, 3.10, 3.11, 3.12)
+
+View test results in the **Actions** tab of the repository.
+
+### Manual Execution
+
+You can manually run the program on GitHub:
+
+1. Go to the **Actions** tab in the repository
+2. Select **"Run Examples"** workflow
+3. Click **"Run workflow"**
+4. Choose which examples to run:
+   - **all**: Run both demo and examples
+   - **demo**: Run the built-in demo only
+   - **examples**: Run the comprehensive examples only
+5. Click **"Run workflow"** button
+6. View the output in the workflow run logs
+
+This allows you to test the encryption system without installing anything locally!
+
+### CI/CD Status
+
+[![CI](https://github.com/v0idsh0id/Phantom/workflows/CI/badge.svg)](https://github.com/v0idsh0id/Phantom/actions/workflows/ci.yml)
+[![Tests](https://github.com/v0idsh0id/Phantom/workflows/Tests/badge.svg)](https://github.com/v0idsh0id/Phantom/actions/workflows/test.yml)
+
 ## Architecture Overview
 
 Phantom uses a multi-layer encryption pipeline:

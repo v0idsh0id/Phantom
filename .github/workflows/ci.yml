@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, copilot/** ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  lint-and-test:
+    name: Lint and Test
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Display Python version
+      run: python --version
+    
+    - name: Run comprehensive tests
+      run: |
+        echo "Running test suite..."
+        python test_phantom_crypto.py -v
+    
+    - name: Run demo
+      run: |
+        echo "Running system demo..."
+        python phantom_crypto.py
+    
+    - name: Run examples
+      run: |
+        echo "Running examples..."
+        python examples.py
+    
+    - name: Verify no syntax errors
+      run: |
+        python -m py_compile phantom_crypto.py
+        python -m py_compile test_phantom_crypto.py
+        python -m py_compile examples.py
+    
+    - name: Summary
+      if: always()
+      run: |
+        echo "✅ All checks completed for Python ${{ matrix.python-version }}"
