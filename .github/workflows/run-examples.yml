@@ -1,0 +1,51 @@
+name: Run Examples
+
+on:
+  workflow_dispatch:  # Manual trigger only
+    inputs:
+      example_type:
+        description: 'Which example to run'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - demo
+          - examples
+
+jobs:
+  run-demo:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.example_type == 'all' || github.event.inputs.example_type == 'demo'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Run Phantom Demo
+      run: |
+        echo "=== Running Phantom Cryptographic System Demo ==="
+        python phantom_crypto.py
+  
+  run-examples:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.example_type == 'all' || github.event.inputs.example_type == 'examples'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Run Examples
+      run: |
+        echo "=== Running Phantom Examples ==="
+        python examples.py
