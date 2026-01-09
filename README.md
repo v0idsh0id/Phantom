@@ -71,7 +71,7 @@ python phantom_crypto.py
 
 ## Running on GitHub
 
-You can run this program directly on GitHub using GitHub Actions! 
+You can run this program directly on GitHub using GitHub Actions! **No installation required!**
 
 ### Automated Testing
 
@@ -93,6 +93,13 @@ You can manually run the program on GitHub:
 4. Choose which examples to run:
    - **all**: Run both demo and examples
    - **demo**: Run the built-in demo only
+   - **examples**: Run the comprehensive examples only
+5. Click **"Run workflow"** button
+6. View the output in the workflow run logs
+
+📖 **See [GITHUB_ACTIONS_GUIDE.md](GITHUB_ACTIONS_GUIDE.md) for detailed instructions with screenshots!**
+
+This allows you to test the encryption system without installing anything locally!
    - **examples**: Run the comprehensive examples only
 5. Click **"Run workflow"** button
 6. View the output in the workflow run logs
