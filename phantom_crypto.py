@@ -391,14 +391,18 @@ class MutatingKeySchedule:
         Derive next round key with forward secrecy
         
         Args:
-            additional_entropy: Optional additional entropy
+            additional_entropy: Additional entropy for key derivation.
+                              For encryption/decryption, this should be the nonce.
+                              If None, uses round number only (deterministic but less secure).
         
         Returns:
             KeyState for current round
         """
-        # Include additional entropy if provided
+        # Use provided entropy or fall back to deterministic round-based value
+        # Note: For encryption/decryption, nonce should always be provided
         if additional_entropy is None:
-            additional_entropy = secrets.token_bytes(16)
+            # Deterministic fallback using only round number
+            additional_entropy = b'default_entropy'
         
         # Hash-chain the state
         self.state_chain = hashlib.blake2b(
@@ -450,6 +454,12 @@ class PhantomCipher:
     
     BLOCK_SIZE = 128  # bytes
     VERSION = 1
+    
+    # Ciphertext structure constants
+    VERSION_SIZE = 4  # bytes
+    SEQUENCE_SIZE = 8  # bytes
+    MAC_SIZE = 64  # bytes (SHA3-512)
+    HEADER_SIZE = VERSION_SIZE + SEQUENCE_SIZE + MAC_SIZE  # 76 bytes total
     
     def __init__(
         self,
@@ -629,16 +639,20 @@ class PhantomCipher:
             ValueError: On integrity check failure or replay detection
         """
         # Parse ciphertext structure
-        if len(ciphertext) < 4 + 8 + 64:
+        if len(ciphertext) < self.HEADER_SIZE:
             raise ValueError("Ciphertext too short")
         
-        version = struct.unpack('!I', ciphertext[:4])[0]
+        version = struct.unpack('!I', ciphertext[:self.VERSION_SIZE])[0]
         if version != self.VERSION:
             raise ValueError(f"Unsupported version: {version}")
         
-        sequence_number = struct.unpack('!Q', ciphertext[4:12])[0]
-        received_mac = ciphertext[12:12+64]  # SHA3-512 produces 64 bytes
-        encrypted_data = ciphertext[12+64:]
+        seq_offset = self.VERSION_SIZE
+        mac_offset = seq_offset + self.SEQUENCE_SIZE
+        data_offset = mac_offset + self.MAC_SIZE
+        
+        sequence_number = struct.unpack('!Q', ciphertext[seq_offset:mac_offset])[0]
+        received_mac = ciphertext[mac_offset:data_offset]
+        encrypted_data = ciphertext[data_offset:]
         
         # Replay resistance check
         if expected_sequence is not None and sequence_number != expected_sequence:

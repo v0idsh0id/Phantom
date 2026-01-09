@@ -518,9 +518,12 @@ class TestSecurityProperties(unittest.TestCase):
         enc1 = crypto1.encrypt(plaintext1)
         enc2 = crypto1.encrypt(plaintext2)
         
-        # Compare ciphertexts (skip header/mac)
-        ct1 = enc1['ciphertext'][76:]  # Skip version, seq, mac
-        ct2 = enc2['ciphertext'][76:]
+        # Import cipher to access header size constant
+        from phantom_crypto import PhantomCipher
+        
+        # Compare ciphertexts (skip header with version, seq, mac)
+        ct1 = enc1['ciphertext'][PhantomCipher.HEADER_SIZE:]
+        ct2 = enc2['ciphertext'][PhantomCipher.HEADER_SIZE:]
         
         # Count differing bits
         diff_bits = sum(bin(b1 ^ b2).count('1') for b1, b2 in zip(ct1, ct2))
