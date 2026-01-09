@@ -15,14 +15,21 @@ You can view results in the **Actions** tab of the repository.
 
 ## Manual Execution (On-Demand)
 
+### Quick Links
+
+🚀 **[Click here to go directly to GitHub Actions →](https://github.com/v0idsh0id/Phantom/actions)**
+
+Or manually navigate:
+
 ### Step-by-Step: Run Examples on GitHub
 
 1. **Navigate to Actions Tab**
-   - Go to the GitHub repository
+   - Go to the GitHub repository: https://github.com/v0idsh0id/Phantom
    - Click on the **"Actions"** tab at the top
 
 2. **Select Workflow**
    - On the left sidebar, click **"Run Examples"**
+   - Direct link: https://github.com/v0idsh0id/Phantom/actions/workflows/run-examples.yml
 
 3. **Run Workflow**
    - Click the **"Run workflow"** dropdown button (right side)

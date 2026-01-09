@@ -85,9 +85,11 @@ View test results in the **Actions** tab of the repository.
 
 ### Manual Execution
 
+🚀 **[Click here to run on GitHub Actions →](https://github.com/v0idsh0id/Phantom/actions/workflows/run-examples.yml)**
+
 You can manually run the program on GitHub:
 
-1. Go to the **Actions** tab in the repository
+1. Go to the [**Actions** tab](https://github.com/v0idsh0id/Phantom/actions) in the repository
 2. Select **"Run Examples"** workflow
 3. Click **"Run workflow"**
 4. Choose which examples to run:
@@ -97,12 +99,7 @@ You can manually run the program on GitHub:
 5. Click **"Run workflow"** button
 6. View the output in the workflow run logs
 
-📖 **See [GITHUB_ACTIONS_GUIDE.md](GITHUB_ACTIONS_GUIDE.md) for detailed instructions with screenshots!**
-
-This allows you to test the encryption system without installing anything locally!
-   - **examples**: Run the comprehensive examples only
-5. Click **"Run workflow"** button
-6. View the output in the workflow run logs
+📖 **See [GITHUB_ACTIONS_GUIDE.md](GITHUB_ACTIONS_GUIDE.md) for detailed instructions!**
 
 This allows you to test the encryption system without installing anything locally!
 
